@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+message Account {
+    int64 id = 1;
+    string name = 2;
+    string avatar_url = 3;
+}
+
+message CreateAccountRequest {
+    string name = 1;
+    string avatar_url = 3;
+}
+
+message CreateAccountResponse {
+    string token = 1;
+    Account account = 2;
+}
+
+message FindUser {
+    int64 id = 1;
+}
+
+service AccountService {
+    rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
+    rpc Find(FindUser) returns (Account) {}
+}

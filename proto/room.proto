@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "proto/account.proto";
+
+message Room {
+    int64 id = 1;
+    string name = 2;
+    int64 owner_id = 3;
+}
+
+message CreateRoomRequest {
+    string name = 1;
+}
+
+message FindRoomRequest {
+    int64 id = 1;
+}
+
+message FindRoomMembersResponse {
+    repeated Account account = 1;
+}
+
+message JoinRoomRequest {
+    int64 id = 1;
+}
+
+service RoomService {
+
+    rpc Create(CreateRoomRequest) returns (Room) {}
+
+    rpc Find(FindRoomRequest) returns(Room) {}
+
+    rpc FindRoomMembers(FindRoomRequest) returns(FindRoomMembersResponse) {}
+
+    rpc JoinRoom(JoinRoomRequest) returns(Room) {}
+
+}

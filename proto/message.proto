@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "proto/account.proto";
+import "google/protobuf/timestamp.proto";
+
+
+message Message {
+    int64 id = 1;
+    string text = 2;
+    Account author = 3;
+    google.protobuf.Timestamp timestamp = 4;
+}
+
+message CreateMessageRequest {
+    int64 room_id = 1;
+    string text = 2;
+}
+
+message ObserveMessageRequest {
+    int64 room_id = 1;
+}
+
+message FindAllMessagesRequest {
+    int64 room_id = 1;
+}
+
+message MessagesResponse {
+    repeated Message messages = 1;
+}
+
+service MessageService {
+
+    rpc CreateMessage(CreateMessageRequest) returns(Message) {}
+
+    rpc ObserveMessages(ObserveMessageRequest) returns(stream Message) {}
+
+    rpc FindAllMessages(FindAllMessagesRequest) returns(MessagesResponse) {}
+    
+}
