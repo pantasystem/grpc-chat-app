@@ -1,11 +1,22 @@
 package models
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/gorm"
+)
 
 type Room struct {
-	Id        int64
+	Id        uuid.UUID `gorm:"primaryKey"`
 	Name      string
-	OwnerId   int64
+	AccountId string
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+func (r *Room) BeforeCreate(tx *gorm.DB) (err error) {
+	uuid, err := uuid.NewRandom()
+	r.Id = uuid
+	return err
 }
