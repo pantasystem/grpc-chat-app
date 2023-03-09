@@ -62,11 +62,57 @@ func (r *RoomService) Find(ctx context.Context, req *proto.FindRoomRequest) (*pr
 	}, nil
 }
 
-func (r *RoomService) FindRoomMembers(context.Context, *proto.FindRoomRequest) (*proto.FindRoomMembersResponse, error) {
-	return nil, nil
+func (r *RoomService) FindRoomMembers(ctx context.Context, req *proto.FindRoomRequest) (*proto.FindRoomMembersResponse, error) {
+	// uuidにparseする
+	uuid, err := uuid.Parse(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	members, err := r.Core.NewRoomRepository().FindRoomMembers(ctx, uuid)
+	if err != nil {
+		return nil, err
+	}
+	// membersをproto.Accountに変換する
+	accounts := make([]*proto.Account, len(members))
+	for i, member := range members {
+		accounts[i] = &proto.Account{
+			Id:        member.Id.String(),
+			Name:      member.Name,
+			AvatarUrl: *member.AvatarUrl,
+		}
+	}
+	return &proto.FindRoomMembersResponse{
+		Account: accounts,
+	}, nil
+
 }
-func (r *RoomService) JoinRoom(context.Context, *proto.JoinRoomRequest) (*proto.Room, error) {
-	return nil, nil
+func (r *RoomService) JoinRoom(ctx context.Context, req *proto.JoinRoomRequest) (*proto.Room, error) {
+	accountId := ctx.Value("accountId").(string)
+	// accountIdを元にAccountを取得する
+	accountUuid, err := uuid.Parse(accountId)
+	if err != nil {
+		return nil, err
+	}
+	account, err := r.Core.NewAccountRepository().Find(ctx, accountUuid)
+	if err != nil {
+		return nil, err
+	}
+
+	roomId, err := uuid.Parse(req.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	room, err := r.Core.NewRoomRepository().Join(ctx, roomId, account.Id)
+	if err != nil {
+		return nil, err
+	}
+	// roomをproto.Roomに変換する
+	return &proto.Room{
+		Id:      room.Id.String(),
+		Name:    room.Name,
+		OwnerId: room.AccountId.String(),
+	}, nil
 }
 
 func NewRoomServiceServer(c *impl.Core) proto.RoomServiceServer {

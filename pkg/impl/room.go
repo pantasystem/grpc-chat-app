@@ -61,6 +61,24 @@ func (r *RoomRepositoryImpl) Join(ctx context.Context, roomID, accountID uuid.UU
 	return r.Find(ctx, roomID)
 }
 
+// memberテーブルからRoomに紐づくAccountを取得する
+func (r *RoomRepositoryImpl) FindRoomMembers(ctx context.Context, roomID uuid.UUID) ([]*models.Account, error) {
+	var members []*models.Member
+	if result := r.C.DB.Find(&members, "room_id = ?", roomID); result.Error != nil {
+		return nil, result.Error
+	}
+
+	var accounts []*models.Account
+	for _, member := range members {
+		account, err := r.C.NewAccountRepository().Find(ctx, member.AccountId)
+		if err != nil {
+			return nil, err
+		}
+		accounts = append(accounts, account)
+	}
+	return accounts, nil
+}
+
 // RoomRepositoryを取得
 func NewRoomRepository() repositories.RoomRepository {
 	return &RoomRepositoryImpl{}
