@@ -20,6 +20,7 @@ func (c *Core) AutoMigration() {
 		&models.Account{},
 		&models.Room{},
 		&models.Message{},
+		&models.Member{},
 	)
 }
 
