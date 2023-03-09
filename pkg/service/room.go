@@ -31,6 +31,12 @@ func (r *RoomService) Create(ctx context.Context, req *proto.CreateRoomRequest) 
 	if err != nil {
 		return nil, err
 	}
+
+	room, err = r.Core.NewRoomRepository().Join(ctx, room.Id, account.Id)
+	if err != nil {
+		return nil, err
+	}
+
 	return &proto.Room{
 		Id:      room.Id.String(),
 		Name:    room.Name,

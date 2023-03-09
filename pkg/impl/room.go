@@ -43,7 +43,7 @@ func (r *RoomRepositoryImpl) Join(ctx context.Context, roomID, accountID uuid.UU
 	var member models.Member
 	if result := r.C.DB.First(&member, "room_id = ? AND account_id = ?", roomID, accountID); result.Error != nil {
 		// errがRecordNotFoundでなければエラー
-		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		if !errors.Is(result.Error, gorm.ErrRecordNotFound) {
 			return nil, result.Error
 		}
 
