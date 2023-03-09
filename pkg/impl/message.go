@@ -6,6 +6,7 @@ import (
 
 	"com.github/pantasystem/rpc-chat/pkg/models"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
+	"github.com/google/uuid"
 )
 
 // MessageRepositoryを実装する
@@ -19,17 +20,17 @@ func (r *MessageRepositoryImpl) Create(ctx context.Context, message *models.Mess
 }
 
 // Messageを取得する
-func (r *MessageRepositoryImpl) Find(ctx context.Context, id string) (*models.Message, error) {
+func (r *MessageRepositoryImpl) Find(ctx context.Context, id uuid.UUID) (*models.Message, error) {
 	return nil, fmt.Errorf("Not Implemented")
 }
 
 // Roomに紐づくMessageを取得する
-func (r *MessageRepositoryImpl) FindAllByRoom(ctx context.Context, roomID string) ([]*models.Message, error) {
+func (r *MessageRepositoryImpl) FindAllByRoom(ctx context.Context, roomID uuid.UUID) ([]*models.Message, error) {
 	return nil, fmt.Errorf("Not Implemented")
 }
 
 // Accountに紐づくMessageを取得する
-func (r *MessageRepositoryImpl) FindAllByAccount(ctx context.Context, accountID string) ([]*models.Message, error) {
+func (r *MessageRepositoryImpl) FindAllByAccount(ctx context.Context, accountID uuid.UUID) ([]*models.Message, error) {
 	return nil, fmt.Errorf("Not Implemented")
 }
 

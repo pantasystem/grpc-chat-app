@@ -36,3 +36,9 @@ func (c *Core) NewRoomRepository() repositories.RoomRepository {
 		C: c,
 	}
 }
+
+func (c *Core) NewMessageRepository() repositories.MessageRepository {
+	return &MessageRepositoryImpl{
+		C: c,
+	}
+}

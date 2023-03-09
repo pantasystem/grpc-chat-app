@@ -48,8 +48,12 @@ func main() {
 	roomService := service.RoomService{
 		Core: core,
 	}
+	messageService := service.MessageService{
+		Core: core,
+	}
 	proto.RegisterAccountServiceServer(s, &accountService)
 	proto.RegisterRoomServiceServer(s, &roomService)
+	proto.RegisterMessageServiceServer(s, &messageService)
 
 	reflection.Register(s)
 
