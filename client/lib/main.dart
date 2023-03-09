@@ -1,4 +1,8 @@
+import 'dart:developer';
+
+import 'package:client/generated/proto/account.pbgrpc.dart';
 import 'package:flutter/material.dart';
+import 'package:grpc/grpc.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,6 +66,20 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
+  void initState() {
+    final channel = ClientChannel(
+      '10.0.2.2',
+      port: 8080,
+      options: const ChannelOptions(credentials: ChannelCredentials.insecure())
+    );
+    final accountClient = AccountServiceClient(channel);
+    accountClient.createAccount(CreateAccountRequest(name: "Test", avatarUrl: "test")).then((p0) {
+      log('create account 成功:$p0');
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
@@ -69,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
