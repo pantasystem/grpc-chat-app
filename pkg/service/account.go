@@ -16,7 +16,7 @@ func (r *AccountService) CreateAccount(ctx context.Context, req *proto.CreateAcc
 	return &proto.CreateAccountResponse{
 		Token: uuid.NewString(),
 		Account: &proto.Account{
-			Id:        0,
+			Id:        uuid.NewString(),
 			Name:      req.Name,
 			AvatarUrl: req.AvatarUrl,
 		},

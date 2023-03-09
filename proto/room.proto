@@ -5,9 +5,9 @@ option go_package="pkg/service/proto";
 import "proto/account.proto";
 
 message Room {
-    int64 id = 1;
+    string id = 1;
     string name = 2;
-    int64 owner_id = 3;
+    string owner_id = 3;
 }
 
 message CreateRoomRequest {
@@ -15,7 +15,7 @@ message CreateRoomRequest {
 }
 
 message FindRoomRequest {
-    int64 id = 1;
+    string id = 1;
 }
 
 message FindRoomMembersResponse {
@@ -23,7 +23,7 @@ message FindRoomMembersResponse {
 }
 
 message JoinRoomRequest {
-    int64 id = 1;
+    string id = 1;
 }
 
 service RoomService {

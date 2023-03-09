@@ -7,7 +7,6 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'account.pb.dart' as $0;
@@ -15,7 +14,7 @@ import '../google/protobuf/timestamp.pb.dart' as $2;
 
 class Message extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Message', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
     ..aOM<$0.Account>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'author', subBuilder: $0.Account.create)
     ..aOM<$2.Timestamp>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'timestamp', subBuilder: $2.Timestamp.create)
@@ -24,7 +23,7 @@ class Message extends $pb.GeneratedMessage {
 
   Message._() : super();
   factory Message({
-    $fixnum.Int64? id,
+    $core.String? id,
     $core.String? text,
     $0.Account? author,
     $2.Timestamp? timestamp,
@@ -66,9 +65,9 @@ class Message extends $pb.GeneratedMessage {
   static Message? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get id => $_getI64(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -108,14 +107,14 @@ class Message extends $pb.GeneratedMessage {
 
 class CreateMessageRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'CreateMessageRequest', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'text')
     ..hasRequiredFields = false
   ;
 
   CreateMessageRequest._() : super();
   factory CreateMessageRequest({
-    $fixnum.Int64? roomId,
+    $core.String? roomId,
     $core.String? text,
   }) {
     final _result = create();
@@ -149,9 +148,9 @@ class CreateMessageRequest extends $pb.GeneratedMessage {
   static CreateMessageRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get roomId => $_getI64(0);
+  $core.String get roomId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set roomId($fixnum.Int64 v) { $_setInt64(0, v); }
+  set roomId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasRoomId() => $_has(0);
   @$pb.TagNumber(1)
@@ -169,13 +168,13 @@ class CreateMessageRequest extends $pb.GeneratedMessage {
 
 class ObserveMessageRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'ObserveMessageRequest', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
     ..hasRequiredFields = false
   ;
 
   ObserveMessageRequest._() : super();
   factory ObserveMessageRequest({
-    $fixnum.Int64? roomId,
+    $core.String? roomId,
   }) {
     final _result = create();
     if (roomId != null) {
@@ -205,9 +204,9 @@ class ObserveMessageRequest extends $pb.GeneratedMessage {
   static ObserveMessageRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get roomId => $_getI64(0);
+  $core.String get roomId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set roomId($fixnum.Int64 v) { $_setInt64(0, v); }
+  set roomId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasRoomId() => $_has(0);
   @$pb.TagNumber(1)
@@ -216,13 +215,13 @@ class ObserveMessageRequest extends $pb.GeneratedMessage {
 
 class FindAllMessagesRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindAllMessagesRequest', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'roomId')
     ..hasRequiredFields = false
   ;
 
   FindAllMessagesRequest._() : super();
   factory FindAllMessagesRequest({
-    $fixnum.Int64? roomId,
+    $core.String? roomId,
   }) {
     final _result = create();
     if (roomId != null) {
@@ -252,9 +251,9 @@ class FindAllMessagesRequest extends $pb.GeneratedMessage {
   static FindAllMessagesRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get roomId => $_getI64(0);
+  $core.String get roomId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set roomId($fixnum.Int64 v) { $_setInt64(0, v); }
+  set roomId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasRoomId() => $_has(0);
   @$pb.TagNumber(1)

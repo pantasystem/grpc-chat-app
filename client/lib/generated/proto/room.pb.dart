@@ -7,24 +7,23 @@
 
 import 'dart:core' as $core;
 
-import 'package:fixnum/fixnum.dart' as $fixnum;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 import 'account.pb.dart' as $0;
 
 class Room extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Room', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..aOS(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'name')
-    ..aInt64(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ownerId')
+    ..aOS(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'ownerId')
     ..hasRequiredFields = false
   ;
 
   Room._() : super();
   factory Room({
-    $fixnum.Int64? id,
+    $core.String? id,
     $core.String? name,
-    $fixnum.Int64? ownerId,
+    $core.String? ownerId,
   }) {
     final _result = create();
     if (id != null) {
@@ -60,9 +59,9 @@ class Room extends $pb.GeneratedMessage {
   static Room? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get id => $_getI64(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -78,9 +77,9 @@ class Room extends $pb.GeneratedMessage {
   void clearName() => clearField(2);
 
   @$pb.TagNumber(3)
-  $fixnum.Int64 get ownerId => $_getI64(2);
+  $core.String get ownerId => $_getSZ(2);
   @$pb.TagNumber(3)
-  set ownerId($fixnum.Int64 v) { $_setInt64(2, v); }
+  set ownerId($core.String v) { $_setString(2, v); }
   @$pb.TagNumber(3)
   $core.bool hasOwnerId() => $_has(2);
   @$pb.TagNumber(3)
@@ -136,13 +135,13 @@ class CreateRoomRequest extends $pb.GeneratedMessage {
 
 class FindRoomRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindRoomRequest', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..hasRequiredFields = false
   ;
 
   FindRoomRequest._() : super();
   factory FindRoomRequest({
-    $fixnum.Int64? id,
+    $core.String? id,
   }) {
     final _result = create();
     if (id != null) {
@@ -172,9 +171,9 @@ class FindRoomRequest extends $pb.GeneratedMessage {
   static FindRoomRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get id => $_getI64(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
@@ -224,13 +223,13 @@ class FindRoomMembersResponse extends $pb.GeneratedMessage {
 
 class JoinRoomRequest extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'JoinRoomRequest', createEmptyInstance: create)
-    ..aInt64(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
     ..hasRequiredFields = false
   ;
 
   JoinRoomRequest._() : super();
   factory JoinRoomRequest({
-    $fixnum.Int64? id,
+    $core.String? id,
   }) {
     final _result = create();
     if (id != null) {
@@ -260,9 +259,9 @@ class JoinRoomRequest extends $pb.GeneratedMessage {
   static JoinRoomRequest? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $fixnum.Int64 get id => $_getI64(0);
+  $core.String get id => $_getSZ(0);
   @$pb.TagNumber(1)
-  set id($fixnum.Int64 v) { $_setInt64(0, v); }
+  set id($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)

@@ -12,14 +12,14 @@ import 'dart:typed_data' as $typed_data;
 const Room$json = const {
   '1': 'Room',
   '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
     const {'1': 'name', '3': 2, '4': 1, '5': 9, '10': 'name'},
-    const {'1': 'owner_id', '3': 3, '4': 1, '5': 3, '10': 'ownerId'},
+    const {'1': 'owner_id', '3': 3, '4': 1, '5': 9, '10': 'ownerId'},
   ],
 };
 
 /// Descriptor for `Room`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List roomDescriptor = $convert.base64Decode('CgRSb29tEg4KAmlkGAEgASgDUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhkKCG93bmVyX2lkGAMgASgDUgdvd25lcklk');
+final $typed_data.Uint8List roomDescriptor = $convert.base64Decode('CgRSb29tEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhkKCG93bmVyX2lkGAMgASgJUgdvd25lcklk');
 @$core.Deprecated('Use createRoomRequestDescriptor instead')
 const CreateRoomRequest$json = const {
   '1': 'CreateRoomRequest',
@@ -34,12 +34,12 @@ final $typed_data.Uint8List createRoomRequestDescriptor = $convert.base64Decode(
 const FindRoomRequest$json = const {
   '1': 'FindRoomRequest',
   '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
   ],
 };
 
 /// Descriptor for `FindRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findRoomRequestDescriptor = $convert.base64Decode('Cg9GaW5kUm9vbVJlcXVlc3QSDgoCaWQYASABKANSAmlk');
+final $typed_data.Uint8List findRoomRequestDescriptor = $convert.base64Decode('Cg9GaW5kUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
 @$core.Deprecated('Use findRoomMembersResponseDescriptor instead')
 const FindRoomMembersResponse$json = const {
   '1': 'FindRoomMembersResponse',
@@ -54,9 +54,9 @@ final $typed_data.Uint8List findRoomMembersResponseDescriptor = $convert.base64D
 const JoinRoomRequest$json = const {
   '1': 'JoinRoomRequest',
   '2': const [
-    const {'1': 'id', '3': 1, '4': 1, '5': 3, '10': 'id'},
+    const {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
   ],
 };
 
 /// Descriptor for `JoinRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List joinRoomRequestDescriptor = $convert.base64Decode('Cg9Kb2luUm9vbVJlcXVlc3QSDgoCaWQYASABKANSAmlk');
+final $typed_data.Uint8List joinRoomRequestDescriptor = $convert.base64Decode('Cg9Kb2luUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
