@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package="pkg/service/proto";
+
 import "proto/account.proto";
 
 message Room {

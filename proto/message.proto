@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package="pkg/service/proto";
+
 import "proto/account.proto";
 import "google/protobuf/timestamp.proto";
 
@@ -35,5 +37,5 @@ service MessageService {
     rpc ObserveMessages(ObserveMessageRequest) returns(stream Message) {}
 
     rpc FindAllMessages(FindAllMessagesRequest) returns(MessagesResponse) {}
-    
+
 }
