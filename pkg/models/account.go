@@ -10,19 +10,25 @@ import (
 type Account struct {
 	Id        uuid.UUID `gorm:"primaryKey"`
 	Name      string
-	AvatarUrl *string `gorm:"default:null"`
+	AvatarUrl *string   `gorm:"default:null"`
+	Token     uuid.UUID `gorm:"uniqueIndex"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
 
-func NewAccount(name string) *Account {
+func NewAccount(name string, avatarUrl string) *Account {
 	return &Account{
-		Name: name,
+		Name:      name,
+		AvatarUrl: &avatarUrl,
 	}
 }
 
 func (r *Account) BeforeCreate(tx *gorm.DB) (err error) {
 	uuid, err := uuid.NewRandom()
+	if err != nil {
+		return err
+	}
 	r.Id = uuid
-	return err
+	r.Token = uuid
+	return nil
 }

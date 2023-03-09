@@ -6,14 +6,25 @@ import (
 	"os"
 	"os/signal"
 
+	"com.github/pantasystem/rpc-chat/pkg/impl"
 	"com.github/pantasystem/rpc-chat/pkg/service"
 	"com.github/pantasystem/rpc-chat/pkg/service/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
 )
 
 func main() {
 	fmt.Printf("test")
+
+	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	if err != nil {
+		panic("failed to connect database")
+	}
+
+	core := impl.NewCore(db)
+	core.AutoMigration()
 
 	port := 8080
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
@@ -23,7 +34,9 @@ func main() {
 
 	s := grpc.NewServer()
 
-	accountService := service.AccountService{}
+	accountService := service.AccountService{
+		Core: core,
+	}
 	proto.RegisterAccountServiceServer(s, &accountService)
 
 	reflection.Register(s)

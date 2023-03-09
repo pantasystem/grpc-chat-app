@@ -2,26 +2,44 @@ package service
 
 import (
 	"context"
-	"fmt"
 
+	"com.github/pantasystem/rpc-chat/pkg/impl"
+	"com.github/pantasystem/rpc-chat/pkg/models"
 	"com.github/pantasystem/rpc-chat/pkg/service/proto"
 	"github.com/google/uuid"
 )
 
 type AccountService struct {
+	Core *impl.Core
 	proto.UnimplementedAccountServiceServer
 }
 
 func (r *AccountService) CreateAccount(ctx context.Context, req *proto.CreateAccountRequest) (*proto.CreateAccountResponse, error) {
+	a := models.NewAccount(req.Name, req.AvatarUrl)
+	a, err := r.Core.NewAccountRepository().Create(ctx, a)
+
+	if err != nil {
+		return nil, err
+	}
+
 	return &proto.CreateAccountResponse{
-		Token: uuid.NewString(),
+		Token: a.Token.String(),
 		Account: &proto.Account{
-			Id:        uuid.NewString(),
-			Name:      req.Name,
-			AvatarUrl: req.AvatarUrl,
+			Id:        a.Id.String(),
+			Name:      a.Name,
+			AvatarUrl: *a.AvatarUrl,
 		},
 	}, nil
 }
+
 func (r *AccountService) Find(ctx context.Context, req *proto.FindUser) (*proto.Account, error) {
-	return nil, fmt.Errorf("Not Implemented")
+	a, err := r.Core.NewAccountRepository().Find(ctx, uuid.MustParse(req.Id))
+	if err != nil {
+		return nil, err
+	}
+	return &proto.Account{
+		Id:        a.Id.String(),
+		Name:      a.Name,
+		AvatarUrl: *a.AvatarUrl,
+	}, nil
 }
