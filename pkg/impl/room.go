@@ -2,11 +2,12 @@ package impl
 
 import (
 	"context"
-	"fmt"
+	"errors"
 
 	"com.github/pantasystem/rpc-chat/pkg/models"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 // RoomRepositoryのImpl構造体
@@ -32,7 +33,32 @@ func (r *RoomRepositoryImpl) Create(ctx context.Context, room *models.Room) (*mo
 }
 
 func (r *RoomRepositoryImpl) Join(ctx context.Context, roomID, accountID uuid.UUID) (*models.Room, error) {
-	return nil, fmt.Errorf("Not Implemented")
+	// Roomを取得
+	_, err := r.Find(ctx, roomID)
+	if err != nil {
+		return nil, err
+	}
+
+	// Memberレコードの有無を確認
+	var member models.Member
+	if result := r.C.DB.First(&member, "room_id = ? AND account_id = ?", roomID, accountID); result.Error != nil {
+		// errがRecordNotFoundでなければエラー
+		if errors.Is(result.Error, gorm.ErrRecordNotFound) {
+			return nil, result.Error
+		}
+
+		// Memberレコードがなければ作成
+		member = models.Member{
+			RoomId:    roomID,
+			AccountId: accountID,
+		}
+		if result := r.C.DB.Create(&member); result.Error != nil {
+			return nil, result.Error
+		}
+	}
+
+	// Roomを取得
+	return r.Find(ctx, roomID)
 }
 
 // RoomRepositoryを取得

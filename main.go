@@ -45,7 +45,11 @@ func main() {
 	accountService := service.AccountService{
 		Core: core,
 	}
+	roomService := service.RoomService{
+		Core: core,
+	}
 	proto.RegisterAccountServiceServer(s, &accountService)
+	proto.RegisterRoomServiceServer(s, &roomService)
 
 	reflection.Register(s)
 
@@ -101,7 +105,7 @@ func authorize(core *impl.Core, ctx context.Context) (context.Context, error) {
 		return nil, err
 	}
 
-	return context.WithValue(ctx, "userId", userId), nil
+	return context.WithValue(ctx, "accountId", userId.Id.String()), nil
 }
 
 // func authenticate(ctx context.Context) (context.Context, error) {

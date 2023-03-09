@@ -30,3 +30,9 @@ func (c *Core) NewAccountRepository() repositories.AccountRepository {
 		C: c,
 	}
 }
+
+func (c *Core) NewRoomRepository() repositories.RoomRepository {
+	return &RoomRepositoryImpl{
+		C: c,
+	}
+}
