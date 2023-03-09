@@ -44,9 +44,24 @@ func (r *RoomService) Create(ctx context.Context, req *proto.CreateRoomRequest) 
 	}, nil
 }
 
-func (r *RoomService) Find(context.Context, *proto.FindRoomRequest) (*proto.Room, error) {
-	return nil, nil
+func (r *RoomService) Find(ctx context.Context, req *proto.FindRoomRequest) (*proto.Room, error) {
+	uuid, err := uuid.Parse(req.Id)
+	if err != nil {
+		return nil, err
+	}
+	room, err := r.Core.NewRoomRepository().Find(ctx, uuid)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &proto.Room{
+		Id:      room.Id.String(),
+		Name:    room.Name,
+		OwnerId: room.AccountId.String(),
+	}, nil
 }
+
 func (r *RoomService) FindRoomMembers(context.Context, *proto.FindRoomRequest) (*proto.FindRoomMembersResponse, error) {
 	return nil, nil
 }
