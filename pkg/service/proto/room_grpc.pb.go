@@ -7,6 +7,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -22,6 +23,9 @@ type RoomServiceClient interface {
 	Find(ctx context.Context, in *FindRoomRequest, opts ...grpc.CallOption) (*Room, error)
 	FindRoomMembers(ctx context.Context, in *FindRoomRequest, opts ...grpc.CallOption) (*FindRoomMembersResponse, error)
 	JoinRoom(ctx context.Context, in *JoinRoomRequest, opts ...grpc.CallOption) (*Room, error)
+	FindJoinedRooms(ctx context.Context, in *FindJoinedRoomsRequest, opts ...grpc.CallOption) (*FindJoinedRoomsResponse, error)
+	FindOwnedRooms(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FindOwnedRoomsResponse, error)
+	FindAllRooms(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FindAllRoomsResponse, error)
 }
 
 type roomServiceClient struct {
@@ -68,6 +72,33 @@ func (c *roomServiceClient) JoinRoom(ctx context.Context, in *JoinRoomRequest, o
 	return out, nil
 }
 
+func (c *roomServiceClient) FindJoinedRooms(ctx context.Context, in *FindJoinedRoomsRequest, opts ...grpc.CallOption) (*FindJoinedRoomsResponse, error) {
+	out := new(FindJoinedRoomsResponse)
+	err := c.cc.Invoke(ctx, "/RoomService/FindJoinedRooms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *roomServiceClient) FindOwnedRooms(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FindOwnedRoomsResponse, error) {
+	out := new(FindOwnedRoomsResponse)
+	err := c.cc.Invoke(ctx, "/RoomService/FindOwnedRooms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *roomServiceClient) FindAllRooms(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*FindAllRoomsResponse, error) {
+	out := new(FindAllRoomsResponse)
+	err := c.cc.Invoke(ctx, "/RoomService/FindAllRooms", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // RoomServiceServer is the server API for RoomService service.
 // All implementations must embed UnimplementedRoomServiceServer
 // for forward compatibility
@@ -76,6 +107,9 @@ type RoomServiceServer interface {
 	Find(context.Context, *FindRoomRequest) (*Room, error)
 	FindRoomMembers(context.Context, *FindRoomRequest) (*FindRoomMembersResponse, error)
 	JoinRoom(context.Context, *JoinRoomRequest) (*Room, error)
+	FindJoinedRooms(context.Context, *FindJoinedRoomsRequest) (*FindJoinedRoomsResponse, error)
+	FindOwnedRooms(context.Context, *emptypb.Empty) (*FindOwnedRoomsResponse, error)
+	FindAllRooms(context.Context, *emptypb.Empty) (*FindAllRoomsResponse, error)
 	mustEmbedUnimplementedRoomServiceServer()
 }
 
@@ -94,6 +128,15 @@ func (UnimplementedRoomServiceServer) FindRoomMembers(context.Context, *FindRoom
 }
 func (UnimplementedRoomServiceServer) JoinRoom(context.Context, *JoinRoomRequest) (*Room, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method JoinRoom not implemented")
+}
+func (UnimplementedRoomServiceServer) FindJoinedRooms(context.Context, *FindJoinedRoomsRequest) (*FindJoinedRoomsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindJoinedRooms not implemented")
+}
+func (UnimplementedRoomServiceServer) FindOwnedRooms(context.Context, *emptypb.Empty) (*FindOwnedRoomsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindOwnedRooms not implemented")
+}
+func (UnimplementedRoomServiceServer) FindAllRooms(context.Context, *emptypb.Empty) (*FindAllRoomsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FindAllRooms not implemented")
 }
 func (UnimplementedRoomServiceServer) mustEmbedUnimplementedRoomServiceServer() {}
 
@@ -180,6 +223,60 @@ func _RoomService_JoinRoom_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RoomService_FindJoinedRooms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FindJoinedRoomsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoomServiceServer).FindJoinedRooms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/RoomService/FindJoinedRooms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoomServiceServer).FindJoinedRooms(ctx, req.(*FindJoinedRoomsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RoomService_FindOwnedRooms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoomServiceServer).FindOwnedRooms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/RoomService/FindOwnedRooms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoomServiceServer).FindOwnedRooms(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _RoomService_FindAllRooms_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(emptypb.Empty)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoomServiceServer).FindAllRooms(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/RoomService/FindAllRooms",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoomServiceServer).FindAllRooms(ctx, req.(*emptypb.Empty))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // RoomService_ServiceDesc is the grpc.ServiceDesc for RoomService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -202,6 +299,18 @@ var RoomService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "JoinRoom",
 			Handler:    _RoomService_JoinRoom_Handler,
+		},
+		{
+			MethodName: "FindJoinedRooms",
+			Handler:    _RoomService_FindJoinedRooms_Handler,
+		},
+		{
+			MethodName: "FindOwnedRooms",
+			Handler:    _RoomService_FindOwnedRooms_Handler,
+		},
+		{
+			MethodName: "FindAllRooms",
+			Handler:    _RoomService_FindAllRooms_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
