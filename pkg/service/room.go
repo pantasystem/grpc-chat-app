@@ -7,6 +7,7 @@ import (
 	"com.github/pantasystem/rpc-chat/pkg/models"
 	"com.github/pantasystem/rpc-chat/pkg/service/proto"
 	"github.com/google/uuid"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 type RoomService struct {
@@ -112,6 +113,91 @@ func (r *RoomService) JoinRoom(ctx context.Context, req *proto.JoinRoomRequest) 
 		Id:      room.Id.String(),
 		Name:    room.Name,
 		OwnerId: room.AccountId.String(),
+	}, nil
+}
+
+func (r *RoomService) FindJoinedRooms(ctx context.Context, req *proto.FindJoinedRoomsRequest) (*proto.FindJoinedRoomsResponse, error) {
+	accountId := ctx.Value("accountId").(string)
+	// accountIdを元にAccountを取得する
+	accountUuid, err := uuid.Parse(accountId)
+	if err != nil {
+		return nil, err
+	}
+	account, err := r.Core.NewAccountRepository().Find(ctx, accountUuid)
+	if err != nil {
+		return nil, err
+	}
+
+	rooms, err := r.Core.NewRoomRepository().FindJoinedRooms(ctx, account.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	// roomsをproto.Roomに変換する
+	protoRooms := make([]*proto.Room, len(rooms))
+	for i, room := range rooms {
+		protoRooms[i] = &proto.Room{
+			Id:      room.Id.String(),
+			Name:    room.Name,
+			OwnerId: room.AccountId.String(),
+		}
+	}
+
+	return &proto.FindJoinedRoomsResponse{
+		Room: protoRooms,
+	}, nil
+}
+
+func (r *RoomService) FindOwnedRooms(ctx context.Context, req *emptypb.Empty) (*proto.FindOwnedRoomsResponse, error) {
+	accountId := ctx.Value("accountId").(string)
+	// accountIdを元にAccountを取得する
+	accountUuid, err := uuid.Parse(accountId)
+	if err != nil {
+		return nil, err
+	}
+	account, err := r.Core.NewAccountRepository().Find(ctx, accountUuid)
+	if err != nil {
+		return nil, err
+	}
+
+	rooms, err := r.Core.NewRoomRepository().FindOwnedRooms(ctx, account.Id)
+	if err != nil {
+		return nil, err
+	}
+
+	// roomsをproto.Roomに変換する
+	protoRooms := make([]*proto.Room, len(rooms))
+	for i, room := range rooms {
+		protoRooms[i] = &proto.Room{
+			Id:      room.Id.String(),
+			Name:    room.Name,
+			OwnerId: room.AccountId.String(),
+		}
+	}
+
+	return &proto.FindOwnedRoomsResponse{
+		Room: protoRooms,
+	}, nil
+}
+
+func (r *RoomService) FindAllRooms(ctx context.Context, req *emptypb.Empty) (*proto.FindAllRoomsResponse, error) {
+	rooms, err := r.Core.NewRoomRepository().FindAllRooms(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	// roomsをproto.Roomに変換する
+	protoRooms := make([]*proto.Room, len(rooms))
+	for i, room := range rooms {
+		protoRooms[i] = &proto.Room{
+			Id:      room.Id.String(),
+			Name:    room.Name,
+			OwnerId: room.AccountId.String(),
+		}
+	}
+
+	return &proto.FindAllRoomsResponse{
+		Room: protoRooms,
 	}, nil
 }
 

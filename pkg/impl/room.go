@@ -79,6 +79,39 @@ func (r *RoomRepositoryImpl) FindRoomMembers(ctx context.Context, roomID uuid.UU
 	return accounts, nil
 }
 
+func (r *RoomRepositoryImpl) FindOwnedRooms(ctx context.Context, accountID uuid.UUID) ([]*models.Room, error) {
+	var rooms []*models.Room
+	if result := r.C.DB.Find(&rooms, "account_id = ?", accountID); result.Error != nil {
+		return nil, result.Error
+	}
+	return rooms, nil
+}
+
+func (r *RoomRepositoryImpl) FindJoinedRooms(ctx context.Context, accountID uuid.UUID) ([]*models.Room, error) {
+	var members []*models.Member
+	if result := r.C.DB.Find(&members, "account_id = ?", accountID); result.Error != nil {
+		return nil, result.Error
+	}
+
+	var rooms []*models.Room
+	for _, member := range members {
+		room, err := r.Find(ctx, member.RoomId)
+		if err != nil {
+			return nil, err
+		}
+		rooms = append(rooms, room)
+	}
+	return rooms, nil
+}
+
+func (r *RoomRepositoryImpl) FindAllRooms(ctx context.Context) ([]*models.Room, error) {
+	var rooms []*models.Room
+	if result := r.C.DB.Find(&rooms); result.Error != nil {
+		return nil, result.Error
+	}
+	return rooms, nil
+}
+
 // RoomRepositoryを取得
 func NewRoomRepository() repositories.RoomRepository {
 	return &RoomRepositoryImpl{}

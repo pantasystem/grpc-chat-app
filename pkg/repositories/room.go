@@ -12,4 +12,7 @@ type RoomRepository interface {
 	Find(ctx context.Context, id uuid.UUID) (*models.Room, error)
 	Join(ctx context.Context, roomID, accountID uuid.UUID) (*models.Room, error)
 	FindRoomMembers(ctx context.Context, roomID uuid.UUID) ([]*models.Account, error)
+	FindOwnedRooms(ctx context.Context, accountID uuid.UUID) ([]*models.Room, error)
+	FindJoinedRooms(ctx context.Context, accountID uuid.UUID) ([]*models.Room, error)
+	FindAllRooms(ctx context.Context) ([]*models.Room, error)
 }
