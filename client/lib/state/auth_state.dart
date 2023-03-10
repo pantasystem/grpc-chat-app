@@ -17,7 +17,7 @@ class AuthState extends ChangeNotifier {
       notifyListeners();
       return;
     }
-    
+
   }
 }
 

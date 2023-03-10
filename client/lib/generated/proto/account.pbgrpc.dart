@@ -11,6 +11,7 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 import 'account.pb.dart' as $0;
+import '../google/protobuf/empty.pb.dart' as $1;
 export 'account.pb.dart';
 
 class AccountServiceClient extends $grpc.Client {
@@ -24,6 +25,10 @@ class AccountServiceClient extends $grpc.Client {
       '/AccountService/Find',
       ($0.FindUser value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $0.Account.fromBuffer(value));
+  static final _$findMe = $grpc.ClientMethod<$1.Empty, $0.FindMeResponse>(
+      '/AccountService/FindMe',
+      ($1.Empty value) => value.writeToBuffer(),
+      ($core.List<$core.int> value) => $0.FindMeResponse.fromBuffer(value));
 
   AccountServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -39,6 +44,11 @@ class AccountServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$0.Account> find($0.FindUser request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$find, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.FindMeResponse> findMe($1.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$findMe, request, options: options);
   }
 }
 
@@ -62,6 +72,13 @@ abstract class AccountServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.FindUser.fromBuffer(value),
         ($0.Account value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.Empty, $0.FindMeResponse>(
+        'FindMe',
+        findMe_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $1.Empty.fromBuffer(value),
+        ($0.FindMeResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$0.CreateAccountResponse> createAccount_Pre(
@@ -75,7 +92,14 @@ abstract class AccountServiceBase extends $grpc.Service {
     return find(call, await request);
   }
 
+  $async.Future<$0.FindMeResponse> findMe_Pre(
+      $grpc.ServiceCall call, $async.Future<$1.Empty> request) async {
+    return findMe(call, await request);
+  }
+
   $async.Future<$0.CreateAccountResponse> createAccount(
       $grpc.ServiceCall call, $0.CreateAccountRequest request);
   $async.Future<$0.Account> find($grpc.ServiceCall call, $0.FindUser request);
+  $async.Future<$0.FindMeResponse> findMe(
+      $grpc.ServiceCall call, $1.Empty request);
 }

@@ -8,6 +8,17 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+@$core.Deprecated('Use authStateDescriptor instead')
+const AuthState$json = const {
+  '1': 'AuthState',
+  '2': const [
+    const {'1': 'UNAUTHENTICATED', '2': 0},
+    const {'1': 'AUTHENTICATED', '2': 1},
+  ],
+};
+
+/// Descriptor for `AuthState`. Decode as a `google.protobuf.EnumDescriptorProto`.
+final $typed_data.Uint8List authStateDescriptor = $convert.base64Decode('CglBdXRoU3RhdGUSEwoPVU5BVVRIRU5USUNBVEVEEAASEQoNQVVUSEVOVElDQVRFRBAB');
 @$core.Deprecated('Use accountDescriptor instead')
 const Account$json = const {
   '1': 'Account',
@@ -52,3 +63,17 @@ const FindUser$json = const {
 
 /// Descriptor for `FindUser`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List findUserDescriptor = $convert.base64Decode('CghGaW5kVXNlchIOCgJpZBgBIAEoCVICaWQ=');
+@$core.Deprecated('Use findMeResponseDescriptor instead')
+const FindMeResponse$json = const {
+  '1': 'FindMeResponse',
+  '2': const [
+    const {'1': 'account', '3': 1, '4': 1, '5': 11, '6': '.Account', '9': 0, '10': 'account', '17': true},
+    const {'1': 'auth_state', '3': 2, '4': 1, '5': 14, '6': '.AuthState', '10': 'authState'},
+  ],
+  '8': const [
+    const {'1': '_account'},
+  ],
+};
+
+/// Descriptor for `FindMeResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List findMeResponseDescriptor = $convert.base64Decode('Cg5GaW5kTWVSZXNwb25zZRInCgdhY2NvdW50GAEgASgLMgguQWNjb3VudEgAUgdhY2NvdW50iAEBEikKCmF1dGhfc3RhdGUYAiABKA4yCi5BdXRoU3RhdGVSCWF1dGhTdGF0ZUIKCghfYWNjb3VudA==');

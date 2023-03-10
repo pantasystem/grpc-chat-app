@@ -9,6 +9,10 @@ import 'dart:core' as $core;
 
 import 'package:protobuf/protobuf.dart' as $pb;
 
+import 'account.pbenum.dart';
+
+export 'account.pbenum.dart';
+
 class Account extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'Account', createEmptyInstance: create)
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'id')
@@ -253,5 +257,68 @@ class FindUser extends $pb.GeneratedMessage {
   $core.bool hasId() => $_has(0);
   @$pb.TagNumber(1)
   void clearId() => clearField(1);
+}
+
+class FindMeResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindMeResponse', createEmptyInstance: create)
+    ..aOM<Account>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'account', subBuilder: Account.create)
+    ..e<AuthState>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'authState', $pb.PbFieldType.OE, defaultOrMaker: AuthState.UNAUTHENTICATED, valueOf: AuthState.valueOf, enumValues: AuthState.values)
+    ..hasRequiredFields = false
+  ;
+
+  FindMeResponse._() : super();
+  factory FindMeResponse({
+    Account? account,
+    AuthState? authState,
+  }) {
+    final _result = create();
+    if (account != null) {
+      _result.account = account;
+    }
+    if (authState != null) {
+      _result.authState = authState;
+    }
+    return _result;
+  }
+  factory FindMeResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FindMeResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FindMeResponse clone() => FindMeResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FindMeResponse copyWith(void Function(FindMeResponse) updates) => super.copyWith((message) => updates(message as FindMeResponse)) as FindMeResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FindMeResponse create() => FindMeResponse._();
+  FindMeResponse createEmptyInstance() => create();
+  static $pb.PbList<FindMeResponse> createRepeated() => $pb.PbList<FindMeResponse>();
+  @$core.pragma('dart2js:noInline')
+  static FindMeResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FindMeResponse>(create);
+  static FindMeResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  Account get account => $_getN(0);
+  @$pb.TagNumber(1)
+  set account(Account v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAccount() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAccount() => clearField(1);
+  @$pb.TagNumber(1)
+  Account ensureAccount() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  AuthState get authState => $_getN(1);
+  @$pb.TagNumber(2)
+  set authState(AuthState v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAuthState() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAuthState() => clearField(2);
 }
 

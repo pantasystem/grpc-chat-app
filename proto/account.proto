@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 option go_package="pkg/service/proto";
+import "google/protobuf/empty.proto";
 
 message Account {
     string id = 1;
@@ -22,7 +23,20 @@ message FindUser {
     string id = 1;
 }
 
+message FindMeResponse {
+    optional Account account = 1;
+    AuthState auth_state = 2;
+}
+// 認証の状態を表す定数
+enum AuthState {
+    // 認証されていない
+    UNAUTHENTICATED = 0;
+    // 認証されている
+    AUTHENTICATED = 1;
+}
+
 service AccountService {
     rpc CreateAccount(CreateAccountRequest) returns (CreateAccountResponse) {}
     rpc Find(FindUser) returns (Account) {}
+    rpc FindMe(google.protobuf.Empty) returns(FindMeResponse) {}
 }
