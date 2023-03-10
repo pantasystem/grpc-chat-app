@@ -1,6 +1,7 @@
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -26,6 +27,9 @@ class _HomePageState extends ConsumerState<HomePage> {
             itemBuilder: (BuildContext context, int index) {
               return ListTile(
                 title: Text(data[index].name),
+                onTap: () {
+                  context.push("/rooms/${data[index].id}");
+                },
               );
             },
           );

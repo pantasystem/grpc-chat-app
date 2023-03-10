@@ -7,6 +7,7 @@ import 'package:grpc/grpc.dart';
 class RoomRepository {
   final AuthRepository authRepository;
   final RoomServiceClient client;
+
   RoomRepository({required this.authRepository, required this.client});
 
   Future<Room> create({required String name}) async {
@@ -49,5 +50,16 @@ class RoomRepository {
           "Authorization": "Bearer ${await authRepository.getToken()}"
         }));
     return res.account;
+  }
+
+  Future<Room> findOne({required String roomId}) async {
+    return await client.find(
+      FindRoomRequest(id: roomId),
+      options: CallOptions(
+        metadata: {
+          "Authorization": "Bearer ${await authRepository.getToken()}"
+        },
+      ),
+    );
   }
 }

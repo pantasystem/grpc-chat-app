@@ -1,5 +1,6 @@
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/initial_loading_page.dart';
+import 'package:client/pages/messaging_page.dart';
 import 'package:client/pages/register_page.dart';
 import 'package:client/state/auth_state.dart';
 import 'package:flutter/material.dart';
@@ -13,30 +14,42 @@ final routerProvider = Provider((ref) {
       refreshListenable: authStore,
       routes: [
         GoRoute(
-            path: "/splash",
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: InitialLoadingPage());
-            }),
+          path: "/splash",
+          pageBuilder: (context, state) {
+            return const MaterialPage(child: InitialLoadingPage());
+          },
+        ),
         GoRoute(
-            path: "/home",
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: HomePage());
-            }),
+          path: "/home",
+          pageBuilder: (context, state) {
+            return const MaterialPage(child: HomePage());
+          },
+        ),
         GoRoute(
-            path: "/register",
-            pageBuilder: (context, state) {
-              return const MaterialPage(child: RegisterPage());
-            }),
+          path: "/register",
+          pageBuilder: (context, state) {
+            return const MaterialPage(child: RegisterPage());
+          },
+        ),
+        GoRoute(
+            path: "/rooms/:roomId",
+          pageBuilder: (context, state) {
+              print("params:${state.params}");
+              return MaterialPage(child: MessagingPage(roomId: state.params["roomId"]!));
+          }
+        )
       ],
       redirect: (context, state) {
-        if (state.subloc != "/splash" && authStore.type == AuthStateType.loading) {
+        if (state.subloc != "/splash" &&
+            authStore.type == AuthStateType.loading) {
           return "/splash";
         }
         if (state.subloc != "/register" &&
             authStore.type == AuthStateType.unauthorized) {
           return "/register";
         }
-        if (state.subloc == "/splash" && authStore.type != AuthStateType.loading) {
+        if (state.subloc == "/splash" &&
+            authStore.type != AuthStateType.loading) {
           return "/home";
         }
         return null;
