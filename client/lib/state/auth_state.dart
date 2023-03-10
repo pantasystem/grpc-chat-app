@@ -33,8 +33,10 @@ class AuthStore extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> register({required String name, required String avatarUrl}) async {
-    final res = await accountRepository.create(name: name, avatarUrl: avatarUrl);
+  Future<void> register(
+      {required String name, required String avatarUrl}) async {
+    final res =
+        await accountRepository.create(name: name, avatarUrl: avatarUrl);
     myAccount = res;
     type = AuthStateType.authorized;
     notifyListeners();
@@ -49,7 +51,7 @@ enum AuthStateType {
 }
 
 final authStoreProvider = ChangeNotifierProvider((ref) {
-  AuthStore(
+  return AuthStore(
     authRepository: ref.read(authRepositoryProvider),
     accountRepository: ref.read(accountRepositoryProvider),
   );

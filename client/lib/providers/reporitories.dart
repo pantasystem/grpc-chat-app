@@ -22,4 +22,3 @@ final roomRepositoryProvider = Provider((ref) {
     client: ref.read(roomClientProvider),
   );
 });
-

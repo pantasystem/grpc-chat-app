@@ -10,17 +10,25 @@ import 'dart:core' as $core;
 import 'package:protobuf/protobuf.dart' as $pb;
 
 class AuthState extends $pb.ProtobufEnum {
-  static const AuthState UNAUTHENTICATED = AuthState._(0, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'UNAUTHENTICATED');
-  static const AuthState AUTHENTICATED = AuthState._(1, const $core.bool.fromEnvironment('protobuf.omit_enum_names') ? '' : 'AUTHENTICATED');
+  static const AuthState UNAUTHENTICATED = AuthState._(
+      0,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
+          : 'UNAUTHENTICATED');
+  static const AuthState AUTHENTICATED = AuthState._(
+      1,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
+          : 'AUTHENTICATED');
 
-  static const $core.List<AuthState> values = <AuthState> [
+  static const $core.List<AuthState> values = <AuthState>[
     UNAUTHENTICATED,
     AUTHENTICATED,
   ];
 
-  static final $core.Map<$core.int, AuthState> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static final $core.Map<$core.int, AuthState> _byValue =
+      $pb.ProtobufEnum.initByValue(values);
   static AuthState? valueOf($core.int value) => _byValue[value];
 
   const AuthState._($core.int v, $core.String n) : super(v, n);
 }
-

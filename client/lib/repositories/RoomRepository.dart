@@ -1,4 +1,3 @@
-
 import 'package:client/generated/google/protobuf/empty.pb.dart';
 import 'package:client/generated/proto/account.pb.dart';
 import 'package:client/generated/proto/room.pbgrpc.dart';
@@ -11,51 +10,44 @@ class RoomRepository {
   RoomRepository({required this.authRepository, required this.client});
 
   Future<Room> create({required String name}) async {
-    return await client.create(
-        CreateRoomRequest(
-          name: name
-      ),
-      options: CallOptions(
-        metadata: {
+    return await client.create(CreateRoomRequest(name: name),
+        options: CallOptions(metadata: {
           "Authorization": "Bearer ${await authRepository.getToken()}"
-        }
-      )
-    );
+        }));
   }
 
   Future<List<Room>> findAll() async {
-    final res = await client.findAllRooms(Empty(), options: CallOptions(
-      metadata: {
-        "Authorization": "Bearer ${await authRepository.getToken()}"
-      }
-    ));
+    final res = await client.findAllRooms(Empty(),
+        options: CallOptions(metadata: {
+          "Authorization": "Bearer ${await authRepository.getToken()}"
+        }));
     return res.room;
   }
 
   Future<List<Room>> findJoined({required String accountId}) async {
-    final res = await client.findJoinedRooms(FindJoinedRoomsRequest(
-      accountId: accountId,
-    ), options: CallOptions(metadata: {
-      "Authorization": "Bearer ${await authRepository.getToken()}"
-    }));
+    final res = await client.findJoinedRooms(
+        FindJoinedRoomsRequest(
+          accountId: accountId,
+        ),
+        options: CallOptions(metadata: {
+          "Authorization": "Bearer ${await authRepository.getToken()}"
+        }));
     return res.room;
   }
 
   Future<Room> join({required String roomId}) async {
-    final res = await client.joinRoom(JoinRoomRequest(id: roomId), options: CallOptions(
-      metadata: {
-        "Authorization": "Bearer ${await authRepository.getToken()}"
-      }
-    ));
+    final res = await client.joinRoom(JoinRoomRequest(id: roomId),
+        options: CallOptions(metadata: {
+          "Authorization": "Bearer ${await authRepository.getToken()}"
+        }));
     return res;
   }
 
   Future<List<Account>> findJoinedMembers({required String roomId}) async {
-    final res = await client.findRoomMembers(FindRoomRequest(id: roomId), options: CallOptions(
-        metadata: {
+    final res = await client.findRoomMembers(FindRoomRequest(id: roomId),
+        options: CallOptions(metadata: {
           "Authorization": "Bearer ${await authRepository.getToken()}"
-        }
-    ));
+        }));
     return res.account;
   }
 }

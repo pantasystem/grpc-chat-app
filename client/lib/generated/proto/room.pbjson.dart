@@ -8,6 +8,7 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+
 @$core.Deprecated('Use roomDescriptor instead')
 const Room$json = const {
   '1': 'Room',
@@ -19,7 +20,8 @@ const Room$json = const {
 };
 
 /// Descriptor for `Room`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List roomDescriptor = $convert.base64Decode('CgRSb29tEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhkKCG93bmVyX2lkGAMgASgJUgdvd25lcklk');
+final $typed_data.Uint8List roomDescriptor = $convert.base64Decode(
+    'CgRSb29tEg4KAmlkGAEgASgJUgJpZBISCgRuYW1lGAIgASgJUgRuYW1lEhkKCG93bmVyX2lkGAMgASgJUgdvd25lcklk');
 @$core.Deprecated('Use createRoomRequestDescriptor instead')
 const CreateRoomRequest$json = const {
   '1': 'CreateRoomRequest',
@@ -29,7 +31,8 @@ const CreateRoomRequest$json = const {
 };
 
 /// Descriptor for `CreateRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List createRoomRequestDescriptor = $convert.base64Decode('ChFDcmVhdGVSb29tUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1l');
+final $typed_data.Uint8List createRoomRequestDescriptor = $convert
+    .base64Decode('ChFDcmVhdGVSb29tUmVxdWVzdBISCgRuYW1lGAEgASgJUgRuYW1l');
 @$core.Deprecated('Use findRoomRequestDescriptor instead')
 const FindRoomRequest$json = const {
   '1': 'FindRoomRequest',
@@ -39,17 +42,27 @@ const FindRoomRequest$json = const {
 };
 
 /// Descriptor for `FindRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findRoomRequestDescriptor = $convert.base64Decode('Cg9GaW5kUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
+final $typed_data.Uint8List findRoomRequestDescriptor =
+    $convert.base64Decode('Cg9GaW5kUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
 @$core.Deprecated('Use findRoomMembersResponseDescriptor instead')
 const FindRoomMembersResponse$json = const {
   '1': 'FindRoomMembersResponse',
   '2': const [
-    const {'1': 'account', '3': 1, '4': 3, '5': 11, '6': '.Account', '10': 'account'},
+    const {
+      '1': 'account',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.Account',
+      '10': 'account'
+    },
   ],
 };
 
 /// Descriptor for `FindRoomMembersResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findRoomMembersResponseDescriptor = $convert.base64Decode('ChdGaW5kUm9vbU1lbWJlcnNSZXNwb25zZRIiCgdhY2NvdW50GAEgAygLMgguQWNjb3VudFIHYWNjb3VudA==');
+final $typed_data.Uint8List findRoomMembersResponseDescriptor =
+    $convert.base64Decode(
+        'ChdGaW5kUm9vbU1lbWJlcnNSZXNwb25zZRIiCgdhY2NvdW50GAEgAygLMgguQWNjb3VudFIHYWNjb3VudA==');
 @$core.Deprecated('Use joinRoomRequestDescriptor instead')
 const JoinRoomRequest$json = const {
   '1': 'JoinRoomRequest',
@@ -59,7 +72,8 @@ const JoinRoomRequest$json = const {
 };
 
 /// Descriptor for `JoinRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List joinRoomRequestDescriptor = $convert.base64Decode('Cg9Kb2luUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
+final $typed_data.Uint8List joinRoomRequestDescriptor =
+    $convert.base64Decode('Cg9Kb2luUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
 @$core.Deprecated('Use findJoinedRoomsRequestDescriptor instead')
 const FindJoinedRoomsRequest$json = const {
   '1': 'FindJoinedRoomsRequest',
@@ -69,7 +83,9 @@ const FindJoinedRoomsRequest$json = const {
 };
 
 /// Descriptor for `FindJoinedRoomsRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findJoinedRoomsRequestDescriptor = $convert.base64Decode('ChZGaW5kSm9pbmVkUm9vbXNSZXF1ZXN0Eh0KCmFjY291bnRfaWQYASABKAlSCWFjY291bnRJZA==');
+final $typed_data.Uint8List findJoinedRoomsRequestDescriptor =
+    $convert.base64Decode(
+        'ChZGaW5kSm9pbmVkUm9vbXNSZXF1ZXN0Eh0KCmFjY291bnRfaWQYASABKAlSCWFjY291bnRJZA==');
 @$core.Deprecated('Use findJoinedRoomsResponseDescriptor instead')
 const FindJoinedRoomsResponse$json = const {
   '1': 'FindJoinedRoomsResponse',
@@ -79,7 +95,9 @@ const FindJoinedRoomsResponse$json = const {
 };
 
 /// Descriptor for `FindJoinedRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findJoinedRoomsResponseDescriptor = $convert.base64Decode('ChdGaW5kSm9pbmVkUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');
+final $typed_data.Uint8List findJoinedRoomsResponseDescriptor =
+    $convert.base64Decode(
+        'ChdGaW5kSm9pbmVkUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');
 @$core.Deprecated('Use findOwnedRoomsResponseDescriptor instead')
 const FindOwnedRoomsResponse$json = const {
   '1': 'FindOwnedRoomsResponse',
@@ -89,7 +107,9 @@ const FindOwnedRoomsResponse$json = const {
 };
 
 /// Descriptor for `FindOwnedRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findOwnedRoomsResponseDescriptor = $convert.base64Decode('ChZGaW5kT3duZWRSb29tc1Jlc3BvbnNlEhkKBHJvb20YASADKAsyBS5Sb29tUgRyb29t');
+final $typed_data.Uint8List findOwnedRoomsResponseDescriptor =
+    $convert.base64Decode(
+        'ChZGaW5kT3duZWRSb29tc1Jlc3BvbnNlEhkKBHJvb20YASADKAsyBS5Sb29tUgRyb29t');
 @$core.Deprecated('Use findAllRoomsResponseDescriptor instead')
 const FindAllRoomsResponse$json = const {
   '1': 'FindAllRoomsResponse',
@@ -99,4 +119,6 @@ const FindAllRoomsResponse$json = const {
 };
 
 /// Descriptor for `FindAllRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List findAllRoomsResponseDescriptor = $convert.base64Decode('ChRGaW5kQWxsUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');
+final $typed_data.Uint8List findAllRoomsResponseDescriptor =
+    $convert.base64Decode(
+        'ChRGaW5kQWxsUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');
