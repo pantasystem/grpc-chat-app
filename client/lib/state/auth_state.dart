@@ -32,6 +32,13 @@ class AuthStore extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  Future<void> register({required String name, required String avatarUrl}) async {
+    final res = await accountRepository.create(name: name, avatarUrl: avatarUrl);
+    myAccount = res;
+    type = AuthStateType.authorized;
+    notifyListeners();
+  }
 }
 
 enum AuthStateType {
