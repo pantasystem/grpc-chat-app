@@ -1,5 +1,6 @@
 
 
+import 'package:client/generated/google/protobuf/empty.pb.dart';
 import 'package:client/generated/proto/account.pbgrpc.dart';
 import 'package:client/repositories/AuthRepository.dart';
 import 'package:grpc/grpc.dart';
@@ -26,6 +27,13 @@ class AccountRepository {
       "Authorization": "Bearer ${await authRepository.getToken()}"
     }));
 
+    return res;
+  }
+
+  Future<FindMeResponse> findMe() async {
+    final res = await client.findMe(Empty(), options: CallOptions(metadata: {
+      "Authorization": "Bearer ${await authRepository.getToken()}"
+    }));
     return res;
   }
 
