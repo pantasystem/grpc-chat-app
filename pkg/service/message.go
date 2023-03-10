@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"com.github/pantasystem/rpc-chat/pkg/impl"
 	"com.github/pantasystem/rpc-chat/pkg/models"
@@ -52,12 +53,22 @@ func (r *MessageService) ObserveMessages(req *proto.ObserveMessageRequest, srv p
 	if err != nil {
 		return err
 	}
-	channel, err := r.Core.NewMessageRepository().ObserveByRoom(srv.Context(), roomId)
-	if err != nil {
-		return err
-	}
-	// channelからメッセージを受け取り、proto.Messageに変換して送信する
-	for message := range channel {
+	// メッセージを受け取るchannelを作成する
+	ch := make(chan *models.Message)
+	r.Core.Pubsub.Subscribe(roomId.String(), ch)
+
+	// 切断を検知するためのcontextを作成する
+	ctx := srv.Context()
+	// 切断を検知するためのgoroutineを起動する
+	go func() {
+		<-ctx.Done()
+		r.Core.Pubsub.Unsubscribe(roomId.String(), ch)
+	}()
+
+	fmt.Printf("ObserveMessages: %s\n", roomId.String())
+	// chからメッセージを受け取り、proto.Messageに変換して送信する
+	for message := range ch {
+		fmt.Printf("received: %v\n", message)
 		err := srv.Send(&proto.Message{
 			Id:   message.Id.String(),
 			Text: message.Text,
@@ -68,9 +79,31 @@ func (r *MessageService) ObserveMessages(req *proto.ObserveMessageRequest, srv p
 			},
 		})
 		if err != nil {
+			fmt.Printf("error: %v\n", err)
 			return err
 		}
 	}
+
+	// channel, err := r.Core.NewMessageRepository().ObserveByRoom(srv.Context(), roomId)
+	// if err != nil {
+	// 	return err
+	// }
+	// // channelからメッセージを受け取り、proto.Messageに変換して送信する
+	// for message := range channel {
+	// 	err := srv.Send(&proto.Message{
+	// 		Id:   message.Id.String(),
+	// 		Text: message.Text,
+	// 		Author: &proto.Account{
+	// 			Id:        message.AccountId.String(),
+	// 			Name:      message.Account.Name,
+	// 			AvatarUrl: *message.Account.AvatarUrl,
+	// 		},
+	// 	})
+	// 	if err != nil {
+	// 		return err
+	// 	}
+	// }
+	fmt.Printf("Close ObserveMessages: %s\n", roomId.String())
 	return nil
 }
 

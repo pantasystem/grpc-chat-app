@@ -8,6 +8,7 @@ import (
 	"os/signal"
 
 	"com.github/pantasystem/rpc-chat/pkg/impl"
+	"com.github/pantasystem/rpc-chat/pkg/repositories"
 	"com.github/pantasystem/rpc-chat/pkg/service"
 	"com.github/pantasystem/rpc-chat/pkg/service/proto"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -26,7 +27,8 @@ func main() {
 		panic("failed to connect database")
 	}
 
-	core := impl.NewCore(db)
+	p := repositories.NewPubsub()
+	core := impl.NewCore(db, p)
 	core.AutoMigration()
 
 	port := 8080
@@ -67,6 +69,7 @@ func main() {
 	signal.Notify(quit, os.Interrupt)
 	<-quit
 	fmt.Println("stopping gRPC server...")
+	p.Close()
 	s.GracefulStop()
 
 }

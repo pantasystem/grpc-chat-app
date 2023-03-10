@@ -33,7 +33,8 @@ func (r *MessageRepositoryImpl) Create(ctx context.Context, message *models.Mess
 		return nil, err
 	}
 
-	go r.Observer.Send(message)
+	go r.C.Pubsub.Publish(message.RoomId.String(), message)
+	// go r.Observer.Send(message)
 
 	return message, err
 }

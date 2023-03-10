@@ -7,11 +7,12 @@ import (
 )
 
 type Core struct {
-	DB *gorm.DB
+	DB     *gorm.DB
+	Pubsub *repositories.Pubsub
 }
 
-func NewCore(db *gorm.DB) *Core {
-	return &Core{DB: db}
+func NewCore(db *gorm.DB, p *repositories.Pubsub) *Core {
+	return &Core{DB: db, Pubsub: p}
 }
 
 // AutoMigrationを実行する
