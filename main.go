@@ -89,6 +89,9 @@ func NewAuthInterceptor(c *impl.Core) func(ctx context.Context,
 			// 認証がOKならContextを返す
 			userIdSetCtx, err := authorize(c, ctx)
 			if err != nil {
+				if info.FullMethod == "/AccountService/FindMe" {
+					return handler(ctx, req)
+				}
 				return nil, err
 			}
 			return handler(userIdSetCtx, req)
