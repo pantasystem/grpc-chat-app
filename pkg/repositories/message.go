@@ -17,4 +17,7 @@ type MessageRepository interface {
 	FindAllByRoom(ctx context.Context, roomID uuid.UUID) ([]*models.Message, error)
 	// Accountに紐づくMessageを取得する
 	FindAllByAccount(ctx context.Context, accountID uuid.UUID) ([]*models.Message, error)
+
+	// Roomに紐づくMessageをchannelで取得する
+	ObserveByRoom(ctx context.Context, roomID uuid.UUID) (<-chan *models.Message, error)
 }

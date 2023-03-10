@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:client/generated/proto/account.pbgrpc.dart';
+import 'package:client/generated/proto/message.pbgrpc.dart';
+import 'package:client/generated/proto/room.pbgrpc.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc.dart';
 
@@ -70,11 +72,26 @@ class _MyHomePageState extends State<MyHomePage> {
     final channel = ClientChannel(
       '10.0.2.2',
       port: 8080,
-      options: const ChannelOptions(credentials: ChannelCredentials.insecure())
+      options: const ChannelOptions(
+        credentials: ChannelCredentials.insecure(),
+
+      )
     );
-    final accountClient = AccountServiceClient(channel);
+    final roomClient = RoomServiceClient(channel);
+    final messageClient = MessageServiceClient(channel);
+    final accountClient = AccountServiceClient(channel, options: CallOptions(
+      metadata: {
+
+      }
+    ));
     accountClient.createAccount(CreateAccountRequest(name: "Test", avatarUrl: "test")).then((p0) {
       log('create account 成功:$p0');
+      roomClient.create(CreateRoomRequest(name: "${p0.account.name}の部屋"), options: CallOptions(metadata: {
+        "Authorization": "Bearer ${p0.token}"
+      })).then((room) {
+        log("create room 成功:$room");
+      });
+
     });
     super.initState();
   }
@@ -132,3 +149,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+//  protoc --dart_out=grpc:client/lib/generated ./proto/message.proto

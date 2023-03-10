@@ -47,7 +47,30 @@ func (r *MessageService) CreateMessage(ctx context.Context, req *proto.CreateMes
 
 }
 
-func (r *MessageService) ObserveMessage(req *proto.ObserveMessageRequest, srv proto.MessageService_ObserveMessagesServer) error {
+func (r *MessageService) ObserveMessages(req *proto.ObserveMessageRequest, srv proto.MessageService_ObserveMessagesServer) error {
+	roomId, err := uuid.Parse(req.RoomId)
+	if err != nil {
+		return err
+	}
+	channel, err := r.Core.NewMessageRepository().ObserveByRoom(srv.Context(), roomId)
+	if err != nil {
+		return err
+	}
+	// channelからメッセージを受け取り、proto.Messageに変換して送信する
+	for message := range channel {
+		err := srv.Send(&proto.Message{
+			Id:   message.Id.String(),
+			Text: message.Text,
+			Author: &proto.Account{
+				Id:        message.AccountId.String(),
+				Name:      message.Account.Name,
+				AvatarUrl: *message.Account.AvatarUrl,
+			},
+		})
+		if err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

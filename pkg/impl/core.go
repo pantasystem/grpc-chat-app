@@ -39,6 +39,7 @@ func (c *Core) NewRoomRepository() repositories.RoomRepository {
 
 func (c *Core) NewMessageRepository() repositories.MessageRepository {
 	return &MessageRepositoryImpl{
-		C: c,
+		C:        c,
+		Observer: &observer,
 	}
 }
