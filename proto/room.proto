@@ -3,6 +3,7 @@ syntax = "proto3";
 option go_package="pkg/service/proto";
 
 import "proto/account.proto";
+import "google/protobuf/empty.proto";
 
 message Room {
     string id = 1;
@@ -26,6 +27,22 @@ message JoinRoomRequest {
     string id = 1;
 }
 
+message FindJoinedRoomsRequest {
+    string account_id = 1;
+}
+
+message FindJoinedRoomsResponse {
+    repeated Room room = 1;
+}
+
+message FindOwnedRoomsResponse {
+    repeated Room room = 1;
+}
+
+message FindAllRoomsResponse {
+    repeated Room room = 1;
+}
+
 service RoomService {
 
     rpc Create(CreateRoomRequest) returns (Room) {}
@@ -36,4 +53,9 @@ service RoomService {
 
     rpc JoinRoom(JoinRoomRequest) returns(Room) {}
 
+    rpc FindJoinedRooms(FindJoinedRoomsRequest) returns(FindJoinedRoomsResponse) {}
+
+    rpc FindOwnedRooms(google.protobuf.Empty)  returns(FindOwnedRoomsResponse) {}
+
+    rpc FindAllRooms(google.protobuf.Empty) returns(FindAllRoomsResponse) {}
 }

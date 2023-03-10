@@ -268,3 +268,173 @@ class JoinRoomRequest extends $pb.GeneratedMessage {
   void clearId() => clearField(1);
 }
 
+class FindJoinedRoomsRequest extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindJoinedRoomsRequest', createEmptyInstance: create)
+    ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'accountId')
+    ..hasRequiredFields = false
+  ;
+
+  FindJoinedRoomsRequest._() : super();
+  factory FindJoinedRoomsRequest({
+    $core.String? accountId,
+  }) {
+    final _result = create();
+    if (accountId != null) {
+      _result.accountId = accountId;
+    }
+    return _result;
+  }
+  factory FindJoinedRoomsRequest.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FindJoinedRoomsRequest.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FindJoinedRoomsRequest clone() => FindJoinedRoomsRequest()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FindJoinedRoomsRequest copyWith(void Function(FindJoinedRoomsRequest) updates) => super.copyWith((message) => updates(message as FindJoinedRoomsRequest)) as FindJoinedRoomsRequest; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FindJoinedRoomsRequest create() => FindJoinedRoomsRequest._();
+  FindJoinedRoomsRequest createEmptyInstance() => create();
+  static $pb.PbList<FindJoinedRoomsRequest> createRepeated() => $pb.PbList<FindJoinedRoomsRequest>();
+  @$core.pragma('dart2js:noInline')
+  static FindJoinedRoomsRequest getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FindJoinedRoomsRequest>(create);
+  static FindJoinedRoomsRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get accountId => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set accountId($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasAccountId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAccountId() => clearField(1);
+}
+
+class FindJoinedRoomsResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindJoinedRoomsResponse', createEmptyInstance: create)
+    ..pc<Room>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'room', $pb.PbFieldType.PM, subBuilder: Room.create)
+    ..hasRequiredFields = false
+  ;
+
+  FindJoinedRoomsResponse._() : super();
+  factory FindJoinedRoomsResponse({
+    $core.Iterable<Room>? room,
+  }) {
+    final _result = create();
+    if (room != null) {
+      _result.room.addAll(room);
+    }
+    return _result;
+  }
+  factory FindJoinedRoomsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FindJoinedRoomsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FindJoinedRoomsResponse clone() => FindJoinedRoomsResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FindJoinedRoomsResponse copyWith(void Function(FindJoinedRoomsResponse) updates) => super.copyWith((message) => updates(message as FindJoinedRoomsResponse)) as FindJoinedRoomsResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FindJoinedRoomsResponse create() => FindJoinedRoomsResponse._();
+  FindJoinedRoomsResponse createEmptyInstance() => create();
+  static $pb.PbList<FindJoinedRoomsResponse> createRepeated() => $pb.PbList<FindJoinedRoomsResponse>();
+  @$core.pragma('dart2js:noInline')
+  static FindJoinedRoomsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FindJoinedRoomsResponse>(create);
+  static FindJoinedRoomsResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Room> get room => $_getList(0);
+}
+
+class FindOwnedRoomsResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindOwnedRoomsResponse', createEmptyInstance: create)
+    ..pc<Room>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'room', $pb.PbFieldType.PM, subBuilder: Room.create)
+    ..hasRequiredFields = false
+  ;
+
+  FindOwnedRoomsResponse._() : super();
+  factory FindOwnedRoomsResponse({
+    $core.Iterable<Room>? room,
+  }) {
+    final _result = create();
+    if (room != null) {
+      _result.room.addAll(room);
+    }
+    return _result;
+  }
+  factory FindOwnedRoomsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FindOwnedRoomsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FindOwnedRoomsResponse clone() => FindOwnedRoomsResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FindOwnedRoomsResponse copyWith(void Function(FindOwnedRoomsResponse) updates) => super.copyWith((message) => updates(message as FindOwnedRoomsResponse)) as FindOwnedRoomsResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FindOwnedRoomsResponse create() => FindOwnedRoomsResponse._();
+  FindOwnedRoomsResponse createEmptyInstance() => create();
+  static $pb.PbList<FindOwnedRoomsResponse> createRepeated() => $pb.PbList<FindOwnedRoomsResponse>();
+  @$core.pragma('dart2js:noInline')
+  static FindOwnedRoomsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FindOwnedRoomsResponse>(create);
+  static FindOwnedRoomsResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Room> get room => $_getList(0);
+}
+
+class FindAllRoomsResponse extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(const $core.bool.fromEnvironment('protobuf.omit_message_names') ? '' : 'FindAllRoomsResponse', createEmptyInstance: create)
+    ..pc<Room>(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'room', $pb.PbFieldType.PM, subBuilder: Room.create)
+    ..hasRequiredFields = false
+  ;
+
+  FindAllRoomsResponse._() : super();
+  factory FindAllRoomsResponse({
+    $core.Iterable<Room>? room,
+  }) {
+    final _result = create();
+    if (room != null) {
+      _result.room.addAll(room);
+    }
+    return _result;
+  }
+  factory FindAllRoomsResponse.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory FindAllRoomsResponse.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.deepCopy] instead. '
+  'Will be removed in next major version')
+  FindAllRoomsResponse clone() => FindAllRoomsResponse()..mergeFromMessage(this);
+  @$core.Deprecated(
+  'Using this can add significant overhead to your binary. '
+  'Use [GeneratedMessageGenericExtensions.rebuild] instead. '
+  'Will be removed in next major version')
+  FindAllRoomsResponse copyWith(void Function(FindAllRoomsResponse) updates) => super.copyWith((message) => updates(message as FindAllRoomsResponse)) as FindAllRoomsResponse; // ignore: deprecated_member_use
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static FindAllRoomsResponse create() => FindAllRoomsResponse._();
+  FindAllRoomsResponse createEmptyInstance() => create();
+  static $pb.PbList<FindAllRoomsResponse> createRepeated() => $pb.PbList<FindAllRoomsResponse>();
+  @$core.pragma('dart2js:noInline')
+  static FindAllRoomsResponse getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<FindAllRoomsResponse>(create);
+  static FindAllRoomsResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Room> get room => $_getList(0);
+}
+

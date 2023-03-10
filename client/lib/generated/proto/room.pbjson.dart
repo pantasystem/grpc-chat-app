@@ -60,3 +60,43 @@ const JoinRoomRequest$json = const {
 
 /// Descriptor for `JoinRoomRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List joinRoomRequestDescriptor = $convert.base64Decode('Cg9Kb2luUm9vbVJlcXVlc3QSDgoCaWQYASABKAlSAmlk');
+@$core.Deprecated('Use findJoinedRoomsRequestDescriptor instead')
+const FindJoinedRoomsRequest$json = const {
+  '1': 'FindJoinedRoomsRequest',
+  '2': const [
+    const {'1': 'account_id', '3': 1, '4': 1, '5': 9, '10': 'accountId'},
+  ],
+};
+
+/// Descriptor for `FindJoinedRoomsRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List findJoinedRoomsRequestDescriptor = $convert.base64Decode('ChZGaW5kSm9pbmVkUm9vbXNSZXF1ZXN0Eh0KCmFjY291bnRfaWQYASABKAlSCWFjY291bnRJZA==');
+@$core.Deprecated('Use findJoinedRoomsResponseDescriptor instead')
+const FindJoinedRoomsResponse$json = const {
+  '1': 'FindJoinedRoomsResponse',
+  '2': const [
+    const {'1': 'room', '3': 1, '4': 3, '5': 11, '6': '.Room', '10': 'room'},
+  ],
+};
+
+/// Descriptor for `FindJoinedRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List findJoinedRoomsResponseDescriptor = $convert.base64Decode('ChdGaW5kSm9pbmVkUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');
+@$core.Deprecated('Use findOwnedRoomsResponseDescriptor instead')
+const FindOwnedRoomsResponse$json = const {
+  '1': 'FindOwnedRoomsResponse',
+  '2': const [
+    const {'1': 'room', '3': 1, '4': 3, '5': 11, '6': '.Room', '10': 'room'},
+  ],
+};
+
+/// Descriptor for `FindOwnedRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List findOwnedRoomsResponseDescriptor = $convert.base64Decode('ChZGaW5kT3duZWRSb29tc1Jlc3BvbnNlEhkKBHJvb20YASADKAsyBS5Sb29tUgRyb29t');
+@$core.Deprecated('Use findAllRoomsResponseDescriptor instead')
+const FindAllRoomsResponse$json = const {
+  '1': 'FindAllRoomsResponse',
+  '2': const [
+    const {'1': 'room', '3': 1, '4': 3, '5': 11, '6': '.Room', '10': 'room'},
+  ],
+};
+
+/// Descriptor for `FindAllRoomsResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List findAllRoomsResponseDescriptor = $convert.base64Decode('ChRGaW5kQWxsUm9vbXNSZXNwb25zZRIZCgRyb29tGAEgAygLMgUuUm9vbVIEcm9vbQ==');

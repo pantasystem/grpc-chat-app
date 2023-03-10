@@ -11,6 +11,7 @@ import 'dart:core' as $core;
 
 import 'package:grpc/service_api.dart' as $grpc;
 import 'room.pb.dart' as $1;
+import '../google/protobuf/empty.pb.dart' as $2;
 export 'room.pb.dart';
 
 class RoomServiceClient extends $grpc.Client {
@@ -32,6 +33,24 @@ class RoomServiceClient extends $grpc.Client {
       '/RoomService/JoinRoom',
       ($1.JoinRoomRequest value) => value.writeToBuffer(),
       ($core.List<$core.int> value) => $1.Room.fromBuffer(value));
+  static final _$findJoinedRooms =
+      $grpc.ClientMethod<$1.FindJoinedRoomsRequest, $1.FindJoinedRoomsResponse>(
+          '/RoomService/FindJoinedRooms',
+          ($1.FindJoinedRoomsRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.FindJoinedRoomsResponse.fromBuffer(value));
+  static final _$findOwnedRooms =
+      $grpc.ClientMethod<$2.Empty, $1.FindOwnedRoomsResponse>(
+          '/RoomService/FindOwnedRooms',
+          ($2.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.FindOwnedRoomsResponse.fromBuffer(value));
+  static final _$findAllRooms =
+      $grpc.ClientMethod<$2.Empty, $1.FindAllRoomsResponse>(
+          '/RoomService/FindAllRooms',
+          ($2.Empty value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) =>
+              $1.FindAllRoomsResponse.fromBuffer(value));
 
   RoomServiceClient($grpc.ClientChannel channel,
       {$grpc.CallOptions? options,
@@ -57,6 +76,23 @@ class RoomServiceClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.Room> joinRoom($1.JoinRoomRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$joinRoom, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.FindJoinedRoomsResponse> findJoinedRooms(
+      $1.FindJoinedRoomsRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$findJoinedRooms, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.FindOwnedRoomsResponse> findOwnedRooms(
+      $2.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$findOwnedRooms, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$1.FindAllRoomsResponse> findAllRooms($2.Empty request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$findAllRooms, request, options: options);
   }
 }
 
@@ -94,6 +130,29 @@ abstract class RoomServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $1.JoinRoomRequest.fromBuffer(value),
         ($1.Room value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$1.FindJoinedRoomsRequest,
+            $1.FindJoinedRoomsResponse>(
+        'FindJoinedRooms',
+        findJoinedRooms_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) =>
+            $1.FindJoinedRoomsRequest.fromBuffer(value),
+        ($1.FindJoinedRoomsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.Empty, $1.FindOwnedRoomsResponse>(
+        'FindOwnedRooms',
+        findOwnedRooms_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.Empty.fromBuffer(value),
+        ($1.FindOwnedRoomsResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$2.Empty, $1.FindAllRoomsResponse>(
+        'FindAllRooms',
+        findAllRooms_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $2.Empty.fromBuffer(value),
+        ($1.FindAllRoomsResponse value) => value.writeToBuffer()));
   }
 
   $async.Future<$1.Room> create_Pre($grpc.ServiceCall call,
@@ -116,6 +175,22 @@ abstract class RoomServiceBase extends $grpc.Service {
     return joinRoom(call, await request);
   }
 
+  $async.Future<$1.FindJoinedRoomsResponse> findJoinedRooms_Pre(
+      $grpc.ServiceCall call,
+      $async.Future<$1.FindJoinedRoomsRequest> request) async {
+    return findJoinedRooms(call, await request);
+  }
+
+  $async.Future<$1.FindOwnedRoomsResponse> findOwnedRooms_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.Empty> request) async {
+    return findOwnedRooms(call, await request);
+  }
+
+  $async.Future<$1.FindAllRoomsResponse> findAllRooms_Pre(
+      $grpc.ServiceCall call, $async.Future<$2.Empty> request) async {
+    return findAllRooms(call, await request);
+  }
+
   $async.Future<$1.Room> create(
       $grpc.ServiceCall call, $1.CreateRoomRequest request);
   $async.Future<$1.Room> find(
@@ -124,4 +199,10 @@ abstract class RoomServiceBase extends $grpc.Service {
       $grpc.ServiceCall call, $1.FindRoomRequest request);
   $async.Future<$1.Room> joinRoom(
       $grpc.ServiceCall call, $1.JoinRoomRequest request);
+  $async.Future<$1.FindJoinedRoomsResponse> findJoinedRooms(
+      $grpc.ServiceCall call, $1.FindJoinedRoomsRequest request);
+  $async.Future<$1.FindOwnedRoomsResponse> findOwnedRooms(
+      $grpc.ServiceCall call, $2.Empty request);
+  $async.Future<$1.FindAllRoomsResponse> findAllRooms(
+      $grpc.ServiceCall call, $2.Empty request);
 }
