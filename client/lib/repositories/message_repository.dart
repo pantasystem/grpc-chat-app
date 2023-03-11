@@ -20,10 +20,11 @@ class MessageRepository {
     return res.messages;
   }
 
-  Future<Message> create({required String text}) async {
+  Future<Message> create({required String text, required String roomId}) async {
     return await client.createMessage(
       CreateMessageRequest(
-      text: text,
+        text: text,
+        roomId: roomId,
       ),
       options: CallOptions(
         metadata: {

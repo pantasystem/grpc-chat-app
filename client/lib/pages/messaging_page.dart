@@ -1,4 +1,5 @@
 import 'package:client/pages/message_card.dart';
+import 'package:client/providers/reporitories.dart';
 import 'package:client/state/messaging_state.dart';
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,33 @@ class MessagingPage extends ConsumerStatefulWidget {
 }
 
 class MessagingPageState extends ConsumerState<MessagingPage> {
+  final TextEditingController _textController = TextEditingController();
+
+  void _handleSubmitted(String text) {
+    _textController.clear();
+    ref.read(messageRepositoryProvider).create(text: text, roomId: widget.roomId);
+  }
+  Widget _buildTextComposer() {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Row(
+        children: [
+          Flexible(
+            child: TextField(
+              controller: _textController,
+              onSubmitted: _handleSubmitted,
+              decoration: const InputDecoration.collapsed(hintText: 'Type your message'),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.send),
+            onPressed: () => _handleSubmitted(_textController.text),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final roomState = ref.watch(roomFamilyProvider(widget.roomId));
@@ -35,11 +63,21 @@ class MessagingPageState extends ConsumerState<MessagingPage> {
           },
         ),
       ),
-      body: ListView.builder(
-        itemCount: messageStore.messages.length,
-        itemBuilder: (BuildContext context, index) {
-          return MessageCard(message: messageStore.messages[index]);
-        },
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView.builder(
+              itemCount: messageStore.messages.length,
+              itemBuilder: (BuildContext context, index) {
+                return MessageCard(message: messageStore.messages[index]);
+              },
+            ),
+          ),
+          Container(
+            decoration: BoxDecoration(color: Theme.of(context).cardColor),
+            child: _buildTextComposer(),
+          ),
+        ],
       ),
     );
   }
