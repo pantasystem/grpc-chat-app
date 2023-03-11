@@ -1,6 +1,6 @@
-import 'package:client/repositories/AccountRepository.dart';
-import 'package:client/repositories/AuthRepository.dart';
-import 'package:client/repositories/RoomRepository.dart';
+import 'package:client/repositories/account_repository.dart';
+import 'package:client/repositories/auth_repository.dart';
+import 'package:client/repositories/room_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'grpc.dart';

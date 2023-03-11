@@ -1,7 +1,7 @@
 import 'package:client/generated/proto/account.pb.dart';
 import 'package:client/providers/reporitories.dart';
-import 'package:client/repositories/AccountRepository.dart';
-import 'package:client/repositories/AuthRepository.dart';
+import 'package:client/repositories/account_repository.dart';
+import 'package:client/repositories/auth_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
