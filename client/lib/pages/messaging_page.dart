@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:client/pages/message_card.dart';
 import 'package:client/providers/reporitories.dart';
 import 'package:client/state/messaging_state.dart';
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MessagingPage extends ConsumerStatefulWidget {
@@ -18,6 +21,42 @@ class MessagingPage extends ConsumerStatefulWidget {
 
 class MessagingPageState extends ConsumerState<MessagingPage> {
   final TextEditingController _textController = TextEditingController();
+  final _scrollController = ScrollController();
+
+  StreamSubscription? disposable;
+  @override
+  void initState() {
+    disposable = ref.read(messageRepositoryProvider).observeMessages(roomId: widget.roomId).listen((event) {
+      final isBottom = _isScrolledToBottom();
+      setState(() {
+        ref.read(messageStoreProvider(widget.roomId)).onReceiveNewMessage(event);
+        if (isBottom) {
+          SchedulerBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
+        }
+      });
+
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    disposable?.cancel();
+    super.dispose();
+  }
+
+  bool _isScrolledToBottom() {
+    return _scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent;
+  }
+
+  void _scrollToBottom() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
+    );
+  }
 
   void _handleSubmitted(String text) {
     _textController.clear();
@@ -67,6 +106,7 @@ class MessagingPageState extends ConsumerState<MessagingPage> {
         children: [
           Expanded(
             child: ListView.builder(
+              controller: _scrollController,
               itemCount: messageStore.messages.length,
               itemBuilder: (BuildContext context, index) {
                 return MessageCard(message: messageStore.messages[index]);

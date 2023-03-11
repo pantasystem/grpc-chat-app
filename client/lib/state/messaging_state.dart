@@ -8,19 +8,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MessageStore extends ChangeNotifier {
   MessageStore({required this.roomId, required this.repository}) {
-    _subscription = repository.observeMessages(roomId: roomId).listen((element) {
-      messages = [
-        ...messages,
-        element
-      ];
-      notifyListeners();
-    });
+    // _subscription = repository.observeMessages(roomId: roomId).listen((element) {
+    //   messages = [
+    //     ...messages,
+    //     element
+    //   ];
+    //   notifyListeners();
+    // });
 
     fetch();
   }
   final String roomId;
   final MessageRepository repository;
-  StreamSubscription? _subscription;
 
   List<Message> messages = [];
   Future<void> fetch() async {
@@ -29,11 +28,14 @@ class MessageStore extends ChangeNotifier {
       notifyListeners();
     });
   }
-  @override
-  void dispose() {
-    _subscription?.cancel();
-    super.dispose();
+
+  void onReceiveNewMessage(Message msg) {
+    messages = [
+      ...messages,
+      msg
+    ];
   }
+
 }
 
 final messageStoreProvider = ChangeNotifierProvider.autoDispose.family((ref, String roomId) {
