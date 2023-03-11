@@ -1,3 +1,4 @@
+import 'package:client/providers/reporitories.dart';
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -50,6 +51,48 @@ class _HomePageState extends ConsumerState<HomePage> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showDialog(context: context, builder: (BuildContext context) {
+            return const CreateRoomDialog();
+          });
+        },
+      ),
+    );
+  }
+}
+
+class CreateRoomDialog extends ConsumerStatefulWidget {
+  const CreateRoomDialog({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() {
+    return CreateRoomDialogState();
+  }
+}
+class CreateRoomDialogState extends ConsumerState {
+
+  final controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: const Text("部屋を作成"),
+      content: TextField(
+        controller: controller,
+        decoration: const InputDecoration(
+          label: Text("部屋名"),
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () {
+          ref.read(roomRepositoryProvider).create(name: controller.text).then((value) {
+            ref.refresh(allRoomsFutureProvider);
+            context.pop();
+          });
+        }, child: const Text("作成")),
+      ],
     );
   }
 }
