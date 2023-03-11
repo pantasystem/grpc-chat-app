@@ -1,3 +1,4 @@
+import 'package:client/pages/message_card.dart';
 import 'package:client/state/messaging_state.dart';
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
@@ -37,9 +38,7 @@ class MessagingPageState extends ConsumerState<MessagingPage> {
       body: ListView.builder(
         itemCount: messageStore.messages.length,
         itemBuilder: (BuildContext context, index) {
-          return ListTile(
-            title: Text(messageStore.messages[index].text),
-          );
+          return MessageCard(message: messageStore.messages[index]);
         },
       ),
     );
