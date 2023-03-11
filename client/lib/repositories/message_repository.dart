@@ -32,4 +32,8 @@ class MessageRepository {
       ),
     );
   }
+
+  Stream<Message> observeMessages({required String roomId}) {
+    return client.observeMessages(ObserveMessageRequest(roomId: roomId));
+  }
 }

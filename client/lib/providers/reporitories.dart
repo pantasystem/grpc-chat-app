@@ -1,5 +1,6 @@
 import 'package:client/repositories/account_repository.dart';
 import 'package:client/repositories/auth_repository.dart';
+import 'package:client/repositories/message_repository.dart';
 import 'package:client/repositories/room_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -21,4 +22,8 @@ final roomRepositoryProvider = Provider((ref) {
     authRepository: ref.read(authRepositoryProvider),
     client: ref.read(roomClientProvider),
   );
+});
+
+final messageRepositoryProvider = Provider((ref) {
+  return MessageRepository(client: ref.read(messageClientProvider), authRepository: ref.read(authRepositoryProvider));
 });

@@ -1,3 +1,4 @@
+import 'package:client/state/messaging_state.dart';
 import 'package:client/state/room_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +18,8 @@ class MessagingPageState extends ConsumerState<MessagingPage> {
   @override
   Widget build(BuildContext context) {
     final roomState = ref.watch(roomFamilyProvider(widget.roomId));
+    final messageStore = ref.watch(messageStoreProvider(widget.roomId));
+
     return Scaffold(
       appBar: AppBar(
         title: roomState.when(
@@ -30,6 +33,14 @@ class MessagingPageState extends ConsumerState<MessagingPage> {
             return const Text("メッセージ");
           },
         ),
+      ),
+      body: ListView.builder(
+        itemCount: messageStore.messages.length,
+        itemBuilder: (BuildContext context, index) {
+          return ListTile(
+            title: Text(messageStore.messages[index].text),
+          );
+        },
       ),
     );
   }
