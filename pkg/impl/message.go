@@ -6,6 +6,7 @@ import (
 	"sync"
 
 	"com.github/pantasystem/rpc-chat/pkg/models"
+	"com.github/pantasystem/rpc-chat/pkg/queue"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
 	"github.com/google/uuid"
 	"gorm.io/gorm/clause"
@@ -33,7 +34,7 @@ func (r *MessageRepositoryImpl) Create(ctx context.Context, message *models.Mess
 		return nil, err
 	}
 
-	go r.C.Pubsub.Publish(message.RoomId.String(), message)
+	go r.C.Pubsub.Publish(message.RoomId.String(), queue.OnMessageCreated(message))
 	// go r.Observer.Send(message)
 
 	return message, err

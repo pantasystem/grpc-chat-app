@@ -2,30 +2,28 @@ package queue
 
 import (
 	"sync"
-
-	"com.github/pantasystem/rpc-chat/pkg/models"
 )
 
 type Pubsub struct {
 	mu     sync.RWMutex
-	subs   map[string][]chan *models.Message
+	subs   map[string][]chan *Event
 	closed bool
 }
 
 func NewPubsub() *Pubsub {
 	return &Pubsub{
-		subs: make(map[string][]chan *models.Message),
+		subs: make(map[string][]chan *Event),
 	}
 }
 
-func (p *Pubsub) Subscribe(topic string, channel chan *models.Message) {
+func (p *Pubsub) Subscribe(topic string, channel chan *Event) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 
 	p.subs[topic] = append(p.subs[topic], channel)
 }
 
-func (p *Pubsub) Publish(topic string, message *models.Message) {
+func (p *Pubsub) Publish(topic string, message *Event) {
 	p.mu.RLock()
 	defer p.mu.RUnlock()
 
@@ -39,7 +37,7 @@ func (p *Pubsub) Publish(topic string, message *models.Message) {
 }
 
 // channelを削除する
-func (p *Pubsub) Unsubscribe(topic string, channel chan *models.Message) {
+func (p *Pubsub) Unsubscribe(topic string, channel chan *Event) {
 	p.mu.Lock()
 	defer p.mu.Unlock()
 

@@ -6,6 +6,7 @@ import (
 
 	"com.github/pantasystem/rpc-chat/pkg/impl"
 	"com.github/pantasystem/rpc-chat/pkg/models"
+	"com.github/pantasystem/rpc-chat/pkg/queue"
 	"com.github/pantasystem/rpc-chat/pkg/service/proto"
 	"github.com/google/uuid"
 )
@@ -54,7 +55,7 @@ func (r *MessageService) ObserveMessages(req *proto.ObserveMessageRequest, srv p
 		return err
 	}
 	// メッセージを受け取るchannelを作成する
-	ch := make(chan *models.Message)
+	ch := make(chan *queue.Event)
 	r.Core.Pubsub.Subscribe(roomId.String(), ch)
 
 	// 切断を検知するためのcontextを作成する
@@ -67,7 +68,11 @@ func (r *MessageService) ObserveMessages(req *proto.ObserveMessageRequest, srv p
 
 	fmt.Printf("ObserveMessages: %s\n", roomId.String())
 	// chからメッセージを受け取り、proto.Messageに変換して送信する
-	for message := range ch {
+	for event := range ch {
+		message := event.Body.Message
+		if message == nil {
+			continue
+		}
 		fmt.Printf("received: %v\n", message)
 		err := srv.Send(&proto.Message{
 			Id:   message.Id.String(),

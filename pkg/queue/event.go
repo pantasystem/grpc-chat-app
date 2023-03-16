@@ -20,8 +20,13 @@ type EventBody struct {
 	Room    *models.Room    `json:"room"`
 }
 
-func OnMessageCreated(msg *models.Message) Event {
-	return Event{
+type AmqpEvent struct {
+	Channel string
+	Event   *Event
+}
+
+func OnMessageCreated(msg *models.Message) *Event {
+	return &Event{
 		Type: MessageCreatedEvent,
 		Body: EventBody{
 			Message: msg,
@@ -38,12 +43,12 @@ func OnRoomCreated(room *models.Room) Event {
 	}
 }
 
-func (r *Event) ToJsonBinary() ([]byte, error) {
+func (r *AmqpEvent) ToJsonBinary() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-func DecodeFromJsonBinary(data []byte) (*Event, error) {
-	var event Event
+func DecodeFromJsonBinary(data []byte) (*AmqpEvent, error) {
+	var event AmqpEvent
 	if err := json.Unmarshal(data, &event); err != nil {
 		return nil, err
 	}
