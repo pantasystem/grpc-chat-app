@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"net"
 	"os"
@@ -10,26 +9,13 @@ import (
 	"com.github/pantasystem/rpc-chat/pkg/impl"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
 	"com.github/pantasystem/rpc-chat/pkg/service"
-	"com.github/pantasystem/rpc-chat/pkg/service/proto"
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
-	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 func main() {
 	fmt.Printf("test")
 
-	dsn := "host=psql user=dbuser password=secret dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
-	db, err := gorm.Open(postgres.Open(dsn))
-	if err != nil {
-		panic("failed to connect database")
-	}
-
 	p := repositories.NewPubsub()
-	core := impl.NewCore(db, p)
+	core := impl.NewCore(p)
 	core.AutoMigration()
 
 	port := 8080
@@ -37,28 +23,8 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	s := grpc.NewServer(
-		grpc.UnaryInterceptor(
-			grpc_middleware.ChainUnaryServer(
-				NewAuthInterceptor(core),
-			),
-		),
-	)
 
-	accountService := service.AccountService{
-		Core: core,
-	}
-	roomService := service.RoomService{
-		Core: core,
-	}
-	messageService := service.MessageService{
-		Core: core,
-	}
-	proto.RegisterAccountServiceServer(s, &accountService)
-	proto.RegisterRoomServiceServer(s, &roomService)
-	proto.RegisterMessageServiceServer(s, &messageService)
-
-	reflection.Register(s)
+	s := service.Setup(core)
 
 	go func() {
 		fmt.Printf("start gRPC server port: %v", port)
@@ -73,50 +39,6 @@ func main() {
 	p.Close()
 	s.GracefulStop()
 
-}
-
-func NewAuthInterceptor(c *impl.Core) func(ctx context.Context,
-	req interface{},
-	info *grpc.UnaryServerInfo,
-	handler grpc.UnaryHandler,
-) (interface{}, error) {
-	return func(ctx context.Context,
-		req interface{},
-		info *grpc.UnaryServerInfo,
-		handler grpc.UnaryHandler,
-	) (interface{}, error) {
-		fmt.Printf("info.FullMethod: %v\n", info.FullMethod)
-		// 認証をスキップするパス
-		if info.FullMethod == "/AccountService/CreateAccount" {
-			return handler(ctx, req)
-		} else {
-			// 認証がOKならContextを返す
-			userIdSetCtx, err := authorize(c, ctx)
-			if err != nil {
-				if info.FullMethod == "/AccountService/FindMe" {
-					return handler(ctx, req)
-				}
-				return nil, err
-			}
-			return handler(userIdSetCtx, req)
-		}
-	}
-
-}
-
-func authorize(core *impl.Core, ctx context.Context) (context.Context, error) {
-	// ヘッダーのトークンからユーザIDを取得
-	token, err := grpc_auth.AuthFromMD(ctx, "Bearer")
-	if err != nil {
-		return nil, err
-	}
-	// jwtのトークンを検証してuserIdを取得（処理の記載は割愛）
-	userId, err := core.NewAccountRepository().FindByToken(ctx, token)
-	if err != nil {
-		return nil, err
-	}
-
-	return context.WithValue(ctx, "accountId", userId.Id.String()), nil
 }
 
 // func authenticate(ctx context.Context) (context.Context, error) {

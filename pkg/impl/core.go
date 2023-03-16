@@ -3,6 +3,7 @@ package impl
 import (
 	"com.github/pantasystem/rpc-chat/pkg/models"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -11,7 +12,12 @@ type Core struct {
 	Pubsub *repositories.Pubsub
 }
 
-func NewCore(db *gorm.DB, p *repositories.Pubsub) *Core {
+func NewCore(p *repositories.Pubsub) *Core {
+	dsn := "host=psql user=dbuser password=secret dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+	db, err := gorm.Open(postgres.Open(dsn))
+	if err != nil {
+		panic("failed to connect database")
+	}
 	return &Core{DB: db, Pubsub: p}
 }
 
