@@ -2,6 +2,7 @@ package impl
 
 import (
 	"com.github/pantasystem/rpc-chat/pkg/models"
+	"com.github/pantasystem/rpc-chat/pkg/queue"
 	"com.github/pantasystem/rpc-chat/pkg/repositories"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -9,10 +10,10 @@ import (
 
 type Core struct {
 	DB     *gorm.DB
-	Pubsub *repositories.Pubsub
+	Pubsub *queue.Pubsub
 }
 
-func NewCore(p *repositories.Pubsub) *Core {
+func NewCore(p *queue.Pubsub) *Core {
 	dsn := "host=psql user=dbuser password=secret dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
 	db, err := gorm.Open(postgres.Open(dsn))
 	if err != nil {

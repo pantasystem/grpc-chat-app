@@ -7,14 +7,14 @@ import (
 	"os/signal"
 
 	"com.github/pantasystem/rpc-chat/pkg/impl"
-	"com.github/pantasystem/rpc-chat/pkg/repositories"
+	"com.github/pantasystem/rpc-chat/pkg/queue"
 	"com.github/pantasystem/rpc-chat/pkg/service"
 )
 
 func main() {
 	fmt.Printf("test")
 
-	p := repositories.NewPubsub()
+	p := queue.NewPubsub()
 	core := impl.NewCore(p)
 	core.AutoMigration()
 
