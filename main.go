@@ -15,14 +15,15 @@ import (
 	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"gorm.io/driver/sqlite"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func main() {
 	fmt.Printf("test")
 
-	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
+	dsn := "host=psql user=dbuser password=secret dbname=database port=5432 sslmode=disable TimeZone=Asia/Tokyo"
+	db, err := gorm.Open(postgres.Open(dsn))
 	if err != nil {
 		panic("failed to connect database")
 	}
